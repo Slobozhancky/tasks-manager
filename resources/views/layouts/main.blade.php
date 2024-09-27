@@ -28,7 +28,7 @@
                         </li>
                     @else
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('registration') }}">Registaration</a>
+                            <a class="nav-link" href="{{ route('user.create') }}">Registaration</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">Login</a>

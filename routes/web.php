@@ -7,6 +7,6 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('registration', [UserController::class, 'create'])->name('registration');
-Route::post('/create', [UserController::class, 'store']);
+Route::get('register', [UserController::class, 'create'])->name('user.create');
+Route::post('register', [UserController::class, 'store'])->name('user.store');
 Route::get('login', [UserController::class, 'login'])->name('login');

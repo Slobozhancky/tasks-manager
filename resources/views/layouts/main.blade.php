@@ -26,6 +26,16 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
                         </li>
+
+{{--                        приклад того, як ми можемо отримати дані нашого юзера--}}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">{{ auth()->user()->name }}</a>
+                        </li>
+
+{{--                        а це вже безпосередньо роут на те, щоб розлогінити юзера--}}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('logout') }}">Logout</a>
+                        </li>
                     @else
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('user.create') }}">Registaration</a>

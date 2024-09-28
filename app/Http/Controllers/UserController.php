@@ -26,22 +26,24 @@ class UserController extends Controller
             'password' => ['required', 'confirmed', 'min:8', 'max:255'],
         ]);
 
-        // 1. Створюємо екземпляр класу, щоб потім взаємодіяти з верифікацією через email
+        // TODO: 1. Створюємо екземпляр класу, щоб потім взаємодіяти з верифікацією через email */
         $user = User::create($request->all());
 
-        // 2. Створюємо івент який буде вказувати на те, що користувача створено
+        // TODO 2. Створюємо івент який буде вказувати на те, що користувача створено */
         event(new Registered($user));
 
-        // 3. Треба також перевірити, щоб в базі в таблиці users було поле email_verified_at, якщо немає треба оновити
-        // таличку через міграцію
+        /** TODO 3. Треба також перевірити, щоб в базі в таблиці users було поле email_verified_at, якщо немає треба
+         оновити табличку через міграцію */
 
-        // 4. ідемо в марштрути і там створюємо три маршрути
+        /** TODO 4. ідемо в марштрути і там створюємо три маршрути */
 
-        // 8. Ось цей фасад за який і говорив, для аутентифікації, тобто коли реєстрація пройшла, щоб юзера було
-        // відразу аутентифіковано
+        /** TODO 8. Ось цей фасад за який і говорив, для аутентифікації, тобто коли реєстрація пройшла, щоб юзера було
+         * відразу аутентифіковано */
         Auth::login($user);
 
-        // 9. Ну і редіректимо юзера на сторінку, з інфою про верифікацію resources/views/user/verify-email.blade.php
+        /** TODO 9. Ну і редіректимо юзера на сторінку, з інфою про верифікацію resources/views/user/verify-email.blade
+         * .php
+         */
         return redirect()->route('verification.notice');
 
 
@@ -49,6 +51,14 @@ class UserController extends Controller
 
     public function login(Request $request){
         return view('user.login');
+
+    }
+    /** TODO 15. Метод щоб розлогінити юзера */
+    public function logout(Request $request){
+
+        Auth::logout();
+
+        return redirect()->route('login');
 
     }
 }

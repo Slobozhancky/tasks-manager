@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
+<nav class="navbar navbar-expand-lg mb-2" style="background-color: #e3f2fd;">
     <div class="container-fluid">
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -24,7 +24,7 @@
                 @if (Route::has('login'))
                     @auth
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Dashboard</a>
+                            <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
                         </li>
                     @else
                         <li class="nav-item">
@@ -42,6 +42,8 @@
 
 <main class="main">
     <div class="container">
+        @yield('dashboard')
+        @yield('verify-email')
         @yield('content')
         @yield('registaration')
         @yield('login')

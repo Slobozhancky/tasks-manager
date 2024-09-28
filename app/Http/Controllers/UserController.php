@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -24,9 +26,23 @@ class UserController extends Controller
             'password' => ['required', 'confirmed', 'min:8', 'max:255'],
         ]);
 
-        User::create($request->all());
+        // 1. Створюємо екземпляр класу, щоб потім взаємодіяти з верифікацією через email
+        $user = User::create($request->all());
 
-        return redirect()->route('login')->with('success', 'Registration true');
+        // 2. Створюємо івент який буде вказувати на те, що користувача створено
+        event(new Registered($user));
+
+        // 3. Треба також перевірити, щоб в базі в таблиці users було поле email_verified_at, якщо немає треба оновити
+        // таличку через міграцію
+
+        // 4. ідемо в марштрути і там створюємо три маршрути
+
+        // 8. Ось цей фасад за який і говорив, для аутентифікації, тобто коли реєстрація пройшла, щоб юзера було
+        // відразу аутентифіковано
+        Auth::login($user);
+
+        // 9. Ну і редіректимо юзера на сторінку, з інфою про верифікацію resources/views/user/verify-email.blade.php
+        return redirect()->route('verification.notice');
 
 
     }

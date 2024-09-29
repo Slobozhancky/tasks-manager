@@ -53,6 +53,30 @@ class UserController extends Controller
         return view('user.login');
 
     }
+
+    // TODO 18. тут будемо приймати дані які прийдуть зі сторінки login
+    public function loginAuth(Request $request){
+
+    // TODO 22. Тут приклад аутентифікації за EMAIL, але якщо нам треба аутентифікувати по ЛОГІНУ, то все тупо так само
+        // але валідувати будемо не email, а login
+        $credentials = $request->validate([
+           'email' => ['required', 'email'],
+           'password' => ['required']
+        ]);
+
+    // TODO 21. attempt відповідає за те, щоб отримати дані з бази і залогінити юзера. Перший параметр це щоб
+        // передати дані, а другий, це щоб вказати чи слід запамятати його в системі. А переконати в цьому можна,
+        // якщо піти в консоль розробника та в Application ми можемо побачити, що юзеру створить додатково куку
+        if(Auth::attempt($credentials, $request->boolean('remember'))){
+            $request->session()->regenerate();
+
+            return redirect()->intended('dashboard')->with('success', 'Welcome, ' . Auth::user()->name);
+        }
+
+        return back()->withErrors([
+           'email' => 'Login or email is not correct!'
+        ]);
+    }
     /** TODO 15. Метод щоб розлогінити юзера */
     public function logout(Request $request){
 

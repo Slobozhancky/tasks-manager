@@ -15,6 +15,7 @@ Route::middleware('guest')->group(function (){
     Route::get('register', [UserController::class, 'create'])->name('user.create');
     Route::post('register', [UserController::class, 'store'])->name('user.store');
     Route::get('login', [UserController::class, 'login'])->name('login');
+    Route::post('login', [UserController::class, 'loginAuth'])->name('loginAuth');
 });
 
 // TODO 17. Мідл вар котрий буде працювати, якщо юзер аутентифікований і верифікований

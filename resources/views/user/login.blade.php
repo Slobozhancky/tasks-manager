@@ -46,6 +46,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
                 <a href="{{ route('user.create') }}" class="ms-2">Don`t have account?</a>
+                <a href="{{ route('password.request') }}" class="ms-2">Forgot password?</a>
             </form>
         </div>
     </div>

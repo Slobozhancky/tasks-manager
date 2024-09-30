@@ -3,6 +3,7 @@
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -16,6 +17,24 @@ Route::middleware('guest')->group(function (){
     Route::post('register', [UserController::class, 'store'])->name('user.store');
     Route::get('login', [UserController::class, 'login'])->name('login');
     Route::post('login', [UserController::class, 'loginAuth'])->name('loginAuth');
+
+    // TODO 23. До відновлення пароля, повинен мати доступ тільки гість
+    // TODO 24. Маршрути нижче, описані в документації: https://laravel.com/docs/11.x/passwords
+    // Тут ми відображаємо вид, з якого будемо відправляти запит на метод POST для відновлення пароля
+    // А ще ми тут логіку лишили не в маршрутах, а винесли в контроллер
+
+    Route::get('forgot-password', function (){
+        return view('user.forgot-password');
+    })->name('password.request');
+
+    Route::post('forgot-password', [UserController::class, 'resetPassword'])->middleware('guest', 'throttle:2,1')
+        ->name('password.email');
+
+    Route::get('reset-password/{token}', function (string $token) {
+        return view('user.reset-password', ['token' => $token]);
+    })->middleware('guest')->name('password.reset');
+
+    Route::post('/reset-password', [UserController::class, 'updatePassword'])->middleware('guest')->name('password.update');
 });
 
 // TODO 17. Мідл вар котрий буде працювати, якщо юзер аутентифікований і верифікований

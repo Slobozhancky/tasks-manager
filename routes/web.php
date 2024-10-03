@@ -16,6 +16,6 @@ Route::get('login', [LoginController::class, 'showForm'])->name('login');
 Route::post('login', [LoginController::class, 'login'])->name('login');
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/admin', function () {
+Route::get('admin', function () {
     return 'Welcome, Admin!';
-})->middleware('role:admin');
+})->middleware('role:admin')->name('admin');

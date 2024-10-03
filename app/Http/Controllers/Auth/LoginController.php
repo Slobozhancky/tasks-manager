@@ -19,10 +19,16 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
+
+
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('/')->with('success', Auth::user());
+            if(auth()->user()->role === 'admin'){
+                return redirect()->route('admin')->with('success', auth()->user()->name);
+            }
+
+            return redirect()->intended('/')->with('success', auth()->user()->name)->with('role', auth()->user()->role);
         }
 
         return back()->withErrors([

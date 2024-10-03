@@ -28,7 +28,7 @@
                         </li>
 
                         <li>
-                            <a class="nav-link" href="#">{{ auth()->user()->name }}</a>
+                            <a class="nav-link" href="#">{{ auth()->user()->name . ' ' . auth()->user()->role }}</a>
                         </li>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

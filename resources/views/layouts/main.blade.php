@@ -13,7 +13,7 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary mb-2">
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex w-100">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
@@ -27,29 +27,29 @@
                             <a class="nav-link" href="#">Dashboard</a>
                         </li>
 
-                        <li>
+                        <li class="nav-item">
                             <a class="nav-link" href="#">{{ auth()->user()->name . ' ' . auth()->user()->role }}</a>
                         </li>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
 
-                            <li>
-                                <button type="submit" class="nav-link" style="background: none; border: none; color: inherit; cursor: pointer;">
-                                    Logout
-                                </button>
-                            </li>
-                        </form>
+                        <!-- Контейнер для кнопки, яка вирівняна вправо -->
+                        <li class="nav-item ms-auto">
+                            <form method="POST" action="{{ route('logout') }}" class="ms-auto">
+                                @csrf
+                                <button type="submit" class="btn btn-danger">Logout</button>
+                            </form>
+                        </li>
+
                     @else
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('registration') }}">Registaration</a>
+                            <a class="nav-link" href="{{ route('registration') }}">Registration</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">Login</a>
                         </li>
-                    @endif
+                    @endauth
                 @endif
-
             </ul>
+
         </div>
     </div>
 </nav>

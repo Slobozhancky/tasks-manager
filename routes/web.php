@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Task\CategoryController;
 use App\Http\Controllers\Task\TaskController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::post('tasks', [TaskController::class, 'store'])->name('tasks.store');
+    Route::post('categories', [CategoryController::class, 'store'])->name('categories.store');
 
 
     // Додайте інші маршрути для авторизованих користувачів

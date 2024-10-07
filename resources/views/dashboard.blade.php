@@ -7,4 +7,6 @@
             <p>Your role: {{ session('role') }}</p>
         </div>
     @endif
+
+
 @endsection

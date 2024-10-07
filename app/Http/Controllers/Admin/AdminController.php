@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
@@ -17,6 +18,30 @@ class AdminController extends Controller
     public function usersIndex(){
         $users = User::all();
         return view('admin.users.index', ['users' =>  $users]);
+    }
+
+    public function usersCreate(){
+        return view('admin.users.create');
+    }
+
+
+    public function usersCreateStore(Request $request){
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        Auth::login($user);
+
+        return redirect()->route('admin.users.index')->with('success', 'Users was created!!!');
     }
 
     public function usersEdit(Request $request){
@@ -33,10 +58,8 @@ class AdminController extends Controller
             'password' => 'nullable|min:8'
         ]);
 
-        // 2. Знаходимо користувача за ID
         $user = User::findOrFail($request->id);
 
-        // 3. Оновлюємо дані користувача
         if (!empty($validatedData['name'])) {
             $user->name = $validatedData['name'];
         }
@@ -54,10 +77,8 @@ class AdminController extends Controller
             $user->password = Hash::make($validatedData['password']);
         }
 
-        // Зберігаємо зміни
         $user->save();
 
-        // 4. Редірект з повідомленням про успішне оновлення
         return redirect()->route('admin.users.index')->with('success', "User: " . $user->id . " updated
         successfully");
     }

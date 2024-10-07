@@ -36,6 +36,7 @@
     <div class="container">
         @yield('admin-index')
         @yield('users')
+        @yield('user-create-page')
         @yield('edit-user')
     </div>
 </main>

@@ -15,7 +15,7 @@
         <div class="collapse navbar-collapse d-flex justify-between" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto d-flex mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ route('admin.index') }}">Admin panel</a>
+                    <a class="nav-link active" aria-current="page" href="{{ route('dashboard') }}">Dashboard</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{ route('admin.users.index') }}">Users</a>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Task;
 use App\Http\Controllers\Controller;
 use App\Models\Task\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -29,7 +30,28 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+//        dd($request->all());
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'status' => 'required|in:pending,in_progress,completed,canceled', // Статуси
+            'deadline' => 'required|date',
+            'category_id' => 'required|exists:categories,id',
+        ]);
+
+
+        // Створюємо задачу
+        Task::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'category_id' => $request->category_id,
+            "status" => $request->status,
+            "deadline" => $request->deadline,
+            'user_id' => Auth::id(), // Зберігаємо ID авторизованого користувача
+        ]);
+
+        return redirect()->route('dashboard')->with('success', 'Task created successfully!');
     }
 
     /**

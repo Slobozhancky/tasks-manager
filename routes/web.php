@@ -3,6 +3,9 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Task\CategoryController;
+use App\Http\Controllers\Task\TaskController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -26,13 +29,13 @@ Route::prefix('admin')->middleware(['check.auth', 'role:admin'])->group(function
 });
 
 Route::middleware('auth')->group(function () {
-    // Додайте всі маршрути для авторизованих користувачів тут
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
-    // Наприклад, маршрут до dashboard
-    Route::get('/', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::post('tasks', [TaskController::class, 'store'])->name('tasks.store');
+    Route::post('categories', [CategoryController::class, 'store'])->name('categories.store');
+
 
     // Додайте інші маршрути для авторизованих користувачів
 //    Route::get('profile', [ProfileController::class, 'show'])->name('profile.show');

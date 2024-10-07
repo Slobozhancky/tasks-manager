@@ -28,7 +28,12 @@
                             <a class="nav-link" href="#">{{ auth()->user()->name . ' ' . auth()->user()->role }}</a>
                         </li>
 
-                        <!-- Контейнер для кнопки, яка вирівняна вправо -->
+                    @if(auth()->user()->role === 'admin')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.index') }}">Admin panel</a>
+                        </li>
+                    @endif
+
                         <li class="nav-item ms-auto">
                             <form method="POST" action="{{ route('logout') }}" class="ms-auto">
                                 @csrf
@@ -52,11 +57,9 @@
 </nav>
 
 <main>
-    <div class="container">
-        @yield('registration')
-        @yield('login')
-        @yield('dashboard')
-    </div>
+    @yield('registration')
+    @yield('login')
+    @yield('dashboard')
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

@@ -1,5 +1,9 @@
-<button type="button" class="btn btn-success rounded-circle position-fixed" style="width: 50px; border: none; height: 50px; bottom: 30px; right: 30px; background-color: transparent" data-bs-toggle="modal" data-bs-target="#taskModal">
-    <img src="{{ asset('images/icons/plus.ico') }}" width="40px" alt="plus" srcset="">
+<button type="button" class="btn plus-btn rounded-circle"
+        data-bs-toggle="modal" data-bs-target="#taskModal">
+    <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="#0d6efd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+    </svg>
 </button>
 
 <div class="modal fade" id="taskModal" tabindex="-1" aria-labelledby="taskModalLabel" aria-hidden="true">
@@ -18,7 +22,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">Description</label>
-                        <textarea type="text" class="form-control" id="description" name="description" required></textarea>
+                        <textarea type="text" class="form-control" id="description" name="description"
+                                  required></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="status" class="form-label">Status</label>

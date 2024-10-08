@@ -1,0 +1,13 @@
+/*.category-actions {*/
+/*    display: none;*/
+/*}*/
+
+/*!* Показати блок з кнопками при наведенні на елемент *!*/
+/*.category-item:hover .category-actions {*/
+/*    display: inline-block;*/
+/*    margin-left: 10px; !* Відступ між назвою категорії та кнопками *!*/
+/*}*/
+
+/*.category-actions .btn {*/
+/*    margin-right: 5px; !* Відступ між кнопками *!*/
+/*}*/

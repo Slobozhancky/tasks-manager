@@ -25,14 +25,14 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">{{ auth()->user()->name . ' ' . auth()->user()->role }}</a>
+                            <a class="nav-link" href="#">{{ auth()->user()->name }}</a>
                         </li>
 
-                    @if(auth()->user()->role === 'admin')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.index') }}">Admin panel</a>
-                        </li>
-                    @endif
+                        @if(auth()->user()->role === 'admin')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.index') }}">Admin panel</a>
+                            </li>
+                        @endif
 
                         <li class="nav-item ms-auto">
                             <form method="POST" action="{{ route('logout') }}" class="ms-auto">

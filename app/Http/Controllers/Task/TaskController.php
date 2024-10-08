@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Task;
 
 use App\Http\Controllers\Controller;
 use App\Models\Task\Task;
+use App\View\Components\Tasks;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -34,7 +35,7 @@ class TaskController extends Controller
 //        dd($request->all());
         $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
             'status' => 'required|in:pending,in_progress,completed,canceled', // Статуси
             'deadline' => 'required|date',
             'category_id' => 'required|exists:categories,id',
@@ -75,14 +76,49 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'nullable|string|max:255',
+            'description' => 'nullable|string|max:255',
+            'status' => 'nullable|in:pending,in_progress,completed,canceled', // Статуси
+            'deadline' => 'nullable|date',
+            'category_id' => 'nullable|exists:categories,id',
+        ]);
+
+        $task = Task::findOrFail($request->id);
+
+        if (!empty($validatedData['title'])) {
+            $task->title = $validatedData['title'];
+        }
+
+        if (!empty($validatedData['description'])) {
+            $task->description = $validatedData['description'];
+        }
+
+        if (!empty($validatedData['status'])) {
+            $task->status = $validatedData['status'];
+        }
+
+        if (!empty($validatedData['deadline'])) {
+            $task->deadline = $validatedData['deadline'];
+        }
+
+        if (!empty($validatedData['category_id'])) {
+            $task->category_id = $validatedData['category_id'];
+        }
+
+        $task->save();
+
+        return redirect()->route('dashboard')->with('success', 'Task was' . $task->id . 'update!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Task $task)
+    public function destroy(Request $request)
     {
-        //
+        $task = Task::findOrFail($request->id);
+        $task->delete();
+
+        return redirect()->route('dashboard')->with('success', "Task: " . $task->id . " was delete");
     }
 }

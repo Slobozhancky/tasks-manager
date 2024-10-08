@@ -19,23 +19,25 @@
     @endif
 
     @section('dashboard')
-            <h2 class="text-center">Tasks Kanban Board</h2>
+        <h2 class="text-center">Tasks Kanban Board</h2>
 
-            <div class="row" style="width: 100%">
-                <div class="col-2">
-                    <x-categories :categories="$categories" />
-                </div>
-
-                <div class="col-10">
-                    <div class="row">
-                        <x-tasks :tasks="$tasks" />
-                        <x-create_tasks :statuses="$statuses" :categories="$categories"/>
-                    </div>
-                </div>
+        <div class="row" style="width: 100%">
+            <div class="col-2">
+                <x-categories :categories="$categories"/>
             </div>
 
+            <div class="col-10">
+                <div class="row">
+                    <x-tasks :tasks="$tasks" :categories="$categories" :statuses="$statuses"/>
+                    <x-create_tasks :statuses="$statuses" :categories="$categories"/>
+                </div>
+            </div>
+        </div>
+
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-success rounded-circle position-fixed" style="width: 50px; border: none; height: 50px; bottom: 30px; right: 30px; background-color: transparent" data-bs-toggle="modal" data-bs-target="#taskModal">
+        <button type="button" class="btn btn-success rounded-circle position-fixed"
+                style="width: 50px; border: none; height: 50px; bottom: 30px; right: 30px; background-color: transparent"
+                data-bs-toggle="modal" data-bs-target="#taskModal">
             <img src="{{ asset('images/icons/plus.ico') }}" width="40px" alt="plus" srcset="">
         </button>
 
@@ -56,14 +58,15 @@
                             </div>
                             <div class="mb-3">
                                 <label for="description" class="form-label">Description</label>
-                                <textarea type="text" class="form-control" id="description" name="description" required></textarea>
+                                <textarea type="text" class="form-control" id="description" name="description"
+                                          required></textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="status" class="form-label">Status</label>
                                 <select class="form-select" id="status" name="status" required>
-                                @foreach($statuses as $status)
-                                    <option value="{{ $status }}">{{ $status }}</option>
-                                @endforeach
+                                    @foreach($statuses as $status)
+                                        <option value="{{ $status }}">{{ $status }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="mb-3">
@@ -74,9 +77,9 @@
                                 <label for="category_id" class="form-label">Category</label>
                                 <select class="form-select" id="category_id" name="category_id" required>
                                     <option value="">Select a category</option>
-                                @foreach($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->title }}</option>
-                                @endforeach
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->title }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary">Create Task</button>
@@ -86,6 +89,5 @@
             </div>
         </div>
     @endsection
-
 
 @endsection

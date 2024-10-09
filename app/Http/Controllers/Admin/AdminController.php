@@ -30,16 +30,18 @@ class AdminController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
+            'role' => 'nullable|string',
             'password' => 'required|string|min:8',
         ]);
 
-        $user = User::create([
+        User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'role' => $request->role,
             'password' => Hash::make($request->password),
         ]);
 
-        Auth::login($user);
+//        Auth::login($user);
 
         return redirect()->route('admin.users.index')->with('success', 'Users was created!!!');
     }

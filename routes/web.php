@@ -38,6 +38,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('tasks/{id}', [TaskController::class, 'destroy'])->name('tasks.destroy');
 
     Route::post('categories', [CategoryController::class, 'store'])->name('categories.store');
+    Route::put('categories/{id}', [CategoryController::class, 'update'])->name('categories.update');
+    Route::delete('categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 
 
     // Додайте інші маршрути для авторизованих користувачів

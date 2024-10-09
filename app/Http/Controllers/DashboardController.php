@@ -25,7 +25,7 @@ class DashboardController extends Controller
                 }, explode(',', str_replace("'", "", substr($matches[0], 5, -1)))) : [];
             })->flatten();
 
-        $categories = Category::query()->where('user_id', auth()->user()->id)->get(['title', 'id']);
+        $categories = Category::query()->where('user_id', auth()->user()->id)->get('*');
         $tasks = Task::query()->where('user_id', auth()->user()->id)->get();
 
         return view('dashboard', ['statuses' => $tasks_status, 'categories' => $categories, 'tasks' => $tasks]);

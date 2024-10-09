@@ -29,3 +29,19 @@
 .plus-btn:hover svg {
     transform: rotate(180deg) scale(1.2); /* Rotate and scale the SVG */
 }
+
+.styled-link {
+    font-weight: 700; /* Жирний шрифт */
+    font-size: 1.2rem; /* Трохи більший розмір тексту */
+    color: #3490dc; /* М'який синій колір */
+    background: linear-gradient(to right, #3490dc, #6574cd); /* Градієнт */
+    -webkit-background-clip: text; /* Прив'язка градієнта до тексту */
+    -webkit-text-fill-color: transparent; /* Прозорий текст */
+    text-decoration: none;
+    transition: color 0.3s ease, text-shadow 0.3s ease; /* Плавний перехід */
+}
+
+.styled-link:hover {
+    color: #1d68a7; /* Трохи темніший синій */
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2); /* Легкий тіньовий ефект при наведенні */
+}

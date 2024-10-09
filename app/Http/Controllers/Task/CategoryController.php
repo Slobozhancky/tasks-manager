@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Task\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -31,13 +33,14 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
 
-        $request->validate([
+        $validateDataCategory = $request->validate([
             'title' => 'required|string|max:255',
         ]);
 
         // Створюємо задачу
         Category::create([
             'title' => $request->title,
+            'slug' => Str::slug($validateDataCategory['title']),
             'user_id' => Auth::id()
         ]);
 
@@ -47,9 +50,25 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function show(Request $request)
     {
-        //
+
+        $tasks_statuses = DB::table('information_schema.COLUMNS')
+            ->where('TABLE_NAME', 'tasks')
+            ->where('COLUMN_NAME', 'status')
+            ->pluck('COLUMN_TYPE')
+            ->map(function ($type) {
+                preg_match("/^enum\(('(.*?)',?)+\)$/", $type, $matches);
+                return isset($matches[0]) ? array_map(function ($val) {
+                    return trim($val, "'");
+                }, explode(',', str_replace("'", "", substr($matches[0], 5, -1)))) : [];
+            })->flatten();
+
+        $categories = Category::query()->get();
+        $category = Category::where('slug', '=', $request->slug)->first();
+        $tasks = $category->tasks;
+
+        return view('categories.show', ['tasks' => $tasks, 'category' => $category, 'categories' => $categories, 'statuses' => $tasks_statuses]);
     }
 
     /**
@@ -65,8 +84,6 @@ class CategoryController extends Controller
      */
     public function update(Request $request)
     {
-//        dd($request->all());
-
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
         ]);
@@ -85,7 +102,7 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category, Request $request,)
+    public function destroy(Request $request,)
     {
         $category = Category::findOrFail($request->id);
         $category->delete();

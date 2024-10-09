@@ -12,14 +12,16 @@ class Tasks extends Component
     public $tasks;
     public $categories;
     public $statuses;
+    public $category;
     /**
      * Create a new component instance.
      */
-    public function __construct($tasks, $categories, $statuses)
+    public function __construct($tasks, $categories, $statuses, $category = null)
     {
         $this->tasks = $tasks;
         $this->categories = $categories;
         $this->statuses = $statuses;
+        $this->category = $category;
     }
 
     /**

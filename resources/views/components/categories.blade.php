@@ -9,9 +9,17 @@
     </div>
 
     <ul class="list-group">
+        <li class="list-group-item d-flex justify-content-between align-items-center category-item">
+            <a href="{{ route('dashboard') }}" class="btn btn-link text-decoration-none text-primary">
+                All tasks
+            </a>
+{{--            <span class="badge badge-primary badge-pill">{{ $category->tasks_count }}</span>--}}
+        </li>
         @foreach($categories as $category)
             <li class="list-group-item d-flex justify-content-between align-items-center category-item">
-                {{ $category->title }}
+                <a href="{{ route('category.show', ['slug' => $category->slug]) }}" class="btn btn-link text-decoration-none text-primary">
+                    {{ $category->title }}
+                </a>
                 <span class="badge badge-primary badge-pill">{{ $category->tasks_count }}</span>
 
                 <div class="card-footer d-flex justify-content-between" style="visibility: hidden;">

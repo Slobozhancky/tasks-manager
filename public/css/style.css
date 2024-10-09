@@ -1,17 +1,6 @@
-.category-actions {
-    display: none;
+.category-item:hover .card-footer {
+    visibility: visible !important;
 }
-
-/* Показати блок з кнопками при наведенні на елемент */
-.category-item:hover .category-actions {
-    display: flex;
-    margin-left: 10px; /* Відступ між назвою категорії та кнопками */
-}
-
-.category-actions .btn {
-    margin-right: 5px; /* Відступ між кнопками */
-}
-
 .plus-btn {
     position: fixed;
     width: 70px;
